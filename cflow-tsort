@@ -1,0 +1,43 @@
+#!/usr/bin/python
+import collections
+import sys
+import re
+
+graph = collections.defaultdict(set)
+rgraph = collections.defaultdict(set)
+stack = [(-1, None)]
+
+line_re = re.compile('^(\s*)(\w+)')
+
+for line in sys.stdin:
+    this_indent, this_function = line_re.match(line).groups()
+    this_indent = len(this_indent)
+    while 1:
+        prev_indent, prev_function = stack[-1]
+        if prev_indent >= this_indent:
+            stack.pop()
+        else:
+            break
+    stack += (this_indent, this_function),
+    if prev_function is None:
+        continue
+    graph[prev_function]
+    graph[this_function].add(prev_function)
+    rgraph[this_function]
+    rgraph[prev_function].add(this_function)
+
+sorted = []
+roots = [node for node, arcs in rgraph.iteritems() if len(arcs) == 0]
+while roots:
+    root = roots.pop()
+    sorted += root,
+    for child in graph[root]:
+        rgraph[child].remove(root)
+        if len(rgraph[child]) == 0:
+            roots.append(child)
+    del graph[root]
+
+from pprint import pprint
+pprint(sorted)
+
+# vim:ts=4 sw=4 et

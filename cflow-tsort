@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+
 import collections
 import sys
 import re
@@ -27,7 +28,7 @@ for line in sys.stdin:
     rgraph[prev_function].add(this_function)
 
 sorted = []
-roots = [node for node, arcs in rgraph.iteritems() if len(arcs) == 0]
+roots = [node for node, arcs in rgraph.items() if len(arcs) == 0]
 while roots:
     root = roots.pop()
     sorted += root,

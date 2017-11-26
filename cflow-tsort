@@ -11,7 +11,7 @@ graph = collections.defaultdict(set)
 rgraph = collections.defaultdict(set)
 stack = [(-1, None)]
 
-line_re = re.compile('^(\s*)(\w+)')
+line_re = re.compile(r'^(\s*)(\w+)')
 
 for line in sys.stdin:
     this_indent, this_function = line_re.match(line).groups()
